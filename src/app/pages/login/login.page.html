@@ -53,21 +53,7 @@
 
       <ion-grid fixed>
 
-        <ion-row>
-          <ion-col>
-            <h3>Seleccione Avatar</h3>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col>
-            <ion-slides [options]="avatarSlide">
-              <ion-slide *ngFor="let avatar of avatars">
-                <ion-img class="pick-avatar" src="/assets/avatars/{{ avatar.img }}" [ngClass]="{'pick-avatar-seleccionado': avatar.seleccionado}" (click)="seleccionarAvatar(avatar)"></ion-img>
-              </ion-slide>
-            </ion-slides>
-          </ion-col>
-        </ion-row>
+        <app-avatar-selector (avatarSel)="registerUser.avatar = $event"></app-avatar-selector>
 
         <form (ngSubmit)="registro(fRegistro)" #fRegistro="ngForm">
           <ion-row>
@@ -77,17 +63,17 @@
 
                 <ion-item>
                   <ion-label>Email</ion-label>
-                  <ion-input name="email" type="email" required></ion-input>
+                  <ion-input name="email" type="email" required [(ngModel)]="registerUser.email"></ion-input>
                 </ion-item>
 
                 <ion-item>
                   <ion-label>Nombre</ion-label>
-                  <ion-input name="nombre" type="text" required></ion-input>
+                  <ion-input name="nombre" type="text" required [(ngModel)]="registerUser.nombre"></ion-input>
                 </ion-item>
 
                 <ion-item>
                   <ion-label>Password</ion-label>
-                  <ion-input name="password" type="password" required></ion-input>
+                  <ion-input name="password" type="password" required [(ngModel)]="registerUser.password"></ion-input>
                 </ion-item>
 
               </ion-list>
