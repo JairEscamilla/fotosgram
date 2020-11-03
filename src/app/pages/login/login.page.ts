@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { IonicStorageModule } from '@ionic/Storage';
+import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,9 @@ export class LoginPage implements OnInit {
     password: "12345"
   }
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService,
+              private navCtrl: NavController,
+              private uiService: UiServiceService) { }
 
   ngOnInit() {
   }
@@ -65,11 +68,17 @@ export class LoginPage implements OnInit {
     this.slides.lockSwipes(true)
   }
 
-  login(fLogin: NgForm){
+  async login(fLogin: NgForm){
     if(fLogin.invalid) return;
-    this.usuarioService.login(this.loginUser.email, this.loginUser.password);
-    console.log(fLogin.valid);
-    console.log(this.loginUser);
+    const valido = await this.usuarioService.login(this.loginUser.email, this.loginUser.password);
+   
+    if(valido){
+      // Navegar al tab
+      this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
+    }else{
+      // Mostrar alerta
+      this.uiService.alertaInformativa("Usuario y contraseña no son correctos");
+    }
     
   }
 
