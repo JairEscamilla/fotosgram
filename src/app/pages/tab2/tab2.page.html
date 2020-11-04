@@ -5,7 +5,7 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="crearPost()" color="primary">
+      <ion-button (click)="crearPost()" color="primary" [disabled]="post.mensaje.length < 1 || cargandoGeo">
         Compartir
       </ion-button>
     </ion-buttons>
@@ -19,14 +19,14 @@
 
     <ion-item>
       <ion-label position="floating">Mensaje</ion-label>
-      <ion-textarea></ion-textarea>
+      <ion-textarea [(ngModel)]="post.mensaje"></ion-textarea>
     </ion-item>
 
     <ion-list>
       <ion-item>
         <ion-label>Posición actual</ion-label>
-        <ion-spinner name="lines-small"></ion-spinner>
-        <ion-toggle slot="end"></ion-toggle>
+        <ion-spinner name="lines-small" *ngIf="cargandoGeo"></ion-spinner>
+        <ion-toggle [(ngModel)]="post.posicion" (ionChange)="getGeo()" slot="end"></ion-toggle>
       </ion-item>
     </ion-list>
 
