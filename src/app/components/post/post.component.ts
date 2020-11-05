@@ -13,6 +13,11 @@ export class PostComponent implements OnInit {
   img2 = "/assets/perro-2.jpg";
   img3 = "/assets/perro-3.jpg";
 
+  slideSoloOpts = {
+    allowSlideNext: false,
+    allowSlidePrev: false
+  }
+
   constructor() { }
 
   ngOnInit() {}
